@@ -28,7 +28,8 @@ public class UnosKorisnikaController {
         if(txtIme.getText().trim().isEmpty() || txtPrezime.getText().trim().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Upozorenje");
-            alert.setHeaderText("Unesite ime i prezime!");
+            alert.setHeaderText("Neispravan unos korisnika");
+            alert.setContentText("Prije potvrde unesite ime i prezime korisnika");
             alert.showAndWait();
             if(txtIme.getText().trim().isEmpty())
                 txtIme.requestFocus();

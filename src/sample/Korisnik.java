@@ -2,6 +2,7 @@ package sample;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Korisnik {
 
@@ -9,15 +10,33 @@ public class Korisnik {
     private String prezime;
     private String email;
     private LocalDate datumRodjenja;
+    private ArrayList<Proizvod> kupljeniProizvodi = new ArrayList<>();
+    private int id;
 
     public Korisnik() {
     }
 
+    public Korisnik(int id, String ime, String prezime, String email, LocalDate datumRodjenja) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.email = email;
+        this.datumRodjenja = datumRodjenja;
+        this.id = id;
+    }
     public Korisnik(String ime, String prezime, String email, LocalDate datumRodjenja) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.datumRodjenja = datumRodjenja;
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIme() {

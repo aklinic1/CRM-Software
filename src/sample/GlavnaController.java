@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -55,6 +58,11 @@ public class GlavnaController {
             stage.setMinWidth(stage.getWidth());
             stage.setOnHiding(event -> {
                 Korisnik korisnik =controller.getKorisnik();
+                try {
+                    korisnik.setId(dao.dajIdZadnjegKorisnika() + 1);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 if(korisnik != null){
                     try {
                         dao.dodajKorisnika(korisnik);
@@ -70,5 +78,23 @@ public class GlavnaController {
         }
     }
 
+    public void actionIzbrisiKorisnika(ActionEvent actionEvent) {
+        Korisnik korisnik = tableView.getSelectionModel().getSelectedItem();
+        if(korisnik != null) {
+            int id = korisnik.getId();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Potvrda brisanja");
+            String imePrezime = korisnik.getIme() + " " + korisnik.getPrezime();
+            alert.setHeaderText("Brisanje korisnika "+ imePrezime);
+            alert.setContentText("Da li ste sigurni da želite obrisati korisnika " + imePrezime +"?");
+            alert.setResizable(true);
 
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                dao.izbrisiKorisnika(id);
+                listaKorisnika.setAll(dao.dajKorisnike());
+            }
+
+        }
+    }
 }

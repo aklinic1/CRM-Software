@@ -6,9 +6,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GlavnaController">
    <right>
-      <VBox prefHeight="350.0" prefWidth="110.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="400.0" prefWidth="117.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id = "btnDodaj" onAction="#actionDodajKorisnika" mnemonicParsing="false" prefHeight="27.0" prefWidth="99.0" text="Dodaj korisnika">
+            <Button fx:id="btnDodaj" mnemonicParsing="false" onAction="#actionDodajKorisnika" prefHeight="27.0" prefWidth="109.0" text="Dodaj korisnika">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -16,7 +16,15 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Izbriši korisnika">
+            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Pregled korisnika">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnIzbrisi" onAction="#actionIzbrisiKorisnika" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Izbriši korisnika">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -40,4 +48,17 @@
          </BorderPane.margin>
       </TableView>
    </center>
+   <top>
+      <HBox prefHeight="31.0" prefWidth="590.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="5.0" right="5.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <children>
+            <ComboBox prefHeight="15.0" prefWidth="150.0" HBox.hgrow="NEVER" />
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

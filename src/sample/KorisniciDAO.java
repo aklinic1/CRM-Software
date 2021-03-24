@@ -9,7 +9,7 @@ public class KorisniciDAO {
     private static KorisniciDAO instance;
     private Connection connection;
 
-    private PreparedStatement dajKorisnikeUpit, dodajKorisnikaUpit, dajIdZadnjegKorisnikaUpit;
+    private PreparedStatement dajKorisnikeUpit, dodajKorisnikaUpit, dajIdZadnjegKorisnikaUpit, izbrisiKorisnikaUpit;
 
     public static KorisniciDAO getInstance(){
         if(instance == null) instance = new KorisniciDAO();
@@ -26,6 +26,7 @@ public class KorisniciDAO {
             dajKorisnikeUpit = connection.prepareStatement("SELECT * FROM korisnici");
             dodajKorisnikaUpit = connection.prepareStatement("INSERT INTO korisnici VALUES(?, ?, ?, ?, ?)");
             dajIdZadnjegKorisnikaUpit = connection.prepareStatement("SELECT MAX(ID) FROM korisnici");
+            izbrisiKorisnikaUpit = connection.prepareStatement("DELETE FROM korisnici WHERE id=?");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -33,7 +34,7 @@ public class KorisniciDAO {
     private Korisnik dajKorisnika(ResultSet rs) {
         Korisnik korisnik = null;
         try {
-
+            int id = rs.getInt(1);
             String ime, prezime, email, datumRodjenja;
             ime = rs.getString(2);
             prezime = rs.getString(3);
@@ -45,7 +46,7 @@ public class KorisniciDAO {
                 String[] rez = datumRodjenja.split("\\.");
                  datum = LocalDate.of(Integer.parseInt(rez[2]), Integer.parseInt(rez[1]), Integer.parseInt(rez[0]));
             }
-            korisnik = new Korisnik(ime, prezime, email, datum);
+            korisnik = new Korisnik(id, ime, prezime, email, datum);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -67,15 +68,27 @@ public class KorisniciDAO {
         return korisnici;
     }
     public void dodajKorisnika(Korisnik korisnik) throws SQLException {
-        ResultSet rs = dajIdZadnjegKorisnikaUpit.executeQuery();
-        rs.next();
-        int id = rs.getInt(1);
-        dodajKorisnikaUpit.setInt(1,id + 1);
+
+        dodajKorisnikaUpit.setInt(1,korisnik.getId());
         dodajKorisnikaUpit.setString(2, korisnik.getIme());
         dodajKorisnikaUpit.setString(3, korisnik.getPrezime());
         dodajKorisnikaUpit.setString(4, korisnik.getEmail());
         dodajKorisnikaUpit.setString(5, korisnik.getDatumIspis());
         dodajKorisnikaUpit.executeUpdate();
+    }
+    public int dajIdZadnjegKorisnika() throws SQLException {
+        ResultSet rs = dajIdZadnjegKorisnikaUpit.executeQuery();
+        rs.next();
+        int id = rs.getInt(1);
+        return id;
+    }
+    public void izbrisiKorisnika(int id){
+        try {
+            izbrisiKorisnikaUpit.setInt(1, id);
+            izbrisiKorisnikaUpit.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
 }
