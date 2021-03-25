@@ -3,43 +3,86 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
 public class GlavnaController {
-    private KorisniciDAO dao;
+    private CrmDAO dao;
     private ObservableList<Korisnik> listaKorisnika;
-    public TableView<Korisnik> tableView;
+    private ObservableList<Proizvod> listaProizvoda;
+    public TableView tableView;
     public TableColumn columnIme, columnPrezime, columnEmail, columnDatumRodjenja;
-
+    public Set<Tag> tagovi = new HashSet<>();
+    public ListView listOpcije;
+    public ObservableList<String> listaOpcija;
 
     public GlavnaController(){
-        dao = KorisniciDAO.getInstance();
+        dao = CrmDAO.getInstance();
         listaKorisnika = FXCollections.observableArrayList(dao.dajKorisnike());
+        listaProizvoda = FXCollections.observableArrayList(dao.dajProizvode());
+        listaOpcija = FXCollections.observableArrayList();
+        listaOpcija.add("Proizvodi");
+        listaOpcija.add("Korisnici");
+    }
+
+    private void dodajVrijednostiKolonamaTabele(String c1, String c2, String c3, String c4){
+        columnIme.setCellValueFactory(new PropertyValueFactory(c1));
+        columnPrezime.setCellValueFactory(new PropertyValueFactory(c2));
+        columnEmail.setCellValueFactory(new PropertyValueFactory(c3));
+        columnDatumRodjenja.setCellValueFactory(new PropertyValueFactory(c4));
+    }
+    private void postaviImenaKolonaTabele(String c1, String c2, String c3, String c4){
+        columnIme.setText(c1);
+        columnPrezime.setText(c2);
+        columnEmail.setText(c3);
+        columnDatumRodjenja.setText(c4);
     }
 
     @FXML
     public void initialize(){
+
         tableView.setItems(listaKorisnika);
-        columnIme.setCellValueFactory(new PropertyValueFactory("ime"));
-        columnPrezime.setCellValueFactory(new PropertyValueFactory("prezime"));
-        columnEmail.setCellValueFactory(new PropertyValueFactory("email"));
-        columnDatumRodjenja.setCellValueFactory(new PropertyValueFactory("datumIspis"));
+        dodajVrijednostiKolonamaTabele("ime", "prezime", "email", "datumIspis");
+
+        listOpcije.setItems(listaOpcija);
+        listOpcije.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent click) {
+                if(click.getClickCount() == 2){
+
+                    if(listOpcije.getSelectionModel().getSelectedItem().equals("Proizvodi")) {
+                        if(!tableView.getColumns().get(0).equals("Naziv")) {
+                            postaviImenaKolonaTabele("Naziv", "Brend", "Cijena(KM)", "Količina");
+                            tableView.setItems(listaProizvoda);
+                            dodajVrijednostiKolonamaTabele("naziv", "brend", "cijena", "kolicina");
+                        }
+                    }
+                    else if(listOpcije.getSelectionModel().getSelectedItem().equals("Korisnici")){
+                        if(!tableView.getColumns().get(0).equals("Ime")){
+                            postaviImenaKolonaTabele("Ime", "Prezime", "E-mail", "Datum rođenja");
+                            tableView.setItems(listaKorisnika);
+                            dodajVrijednostiKolonamaTabele("ime", "prezime", "email", "datumIspis");
+                        }
+                    }
+                }
+            }
+        });
     }
 
 
@@ -58,13 +101,10 @@ public class GlavnaController {
             stage.setMinWidth(stage.getWidth());
             stage.setOnHiding(event -> {
                 Korisnik korisnik =controller.getKorisnik();
-                try {
-                    korisnik.setId(dao.dajIdZadnjegKorisnika() + 1);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
+
                 if(korisnik != null){
                     try {
+                        korisnik.setId(dao.dajIdZadnjegKorisnika() + 1);
                         dao.dodajKorisnika(korisnik);
                         listaKorisnika.setAll(dao.dajKorisnike());
                     } catch (SQLException throwables) {
@@ -79,7 +119,7 @@ public class GlavnaController {
     }
 
     public void actionIzbrisiKorisnika(ActionEvent actionEvent) {
-        Korisnik korisnik = tableView.getSelectionModel().getSelectedItem();
+        Korisnik korisnik = (Korisnik) tableView.getSelectionModel().getSelectedItem();
         if(korisnik != null) {
             int id = korisnik.getId();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -3,20 +3,20 @@ package sample;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class KorisniciDAO {
-    private static KorisniciDAO instance;
+public class CrmDAO {
+    private static CrmDAO instance;
     private Connection connection;
 
-    private PreparedStatement dajKorisnikeUpit, dodajKorisnikaUpit, dajIdZadnjegKorisnikaUpit, izbrisiKorisnikaUpit;
+    private PreparedStatement dajKorisnikeUpit, dodajKorisnikaUpit, dajIdZadnjegKorisnikaUpit, izbrisiKorisnikaUpit,
+        dajProizvodeUpit, dodajProizvodUpit, izbrisiProizvodUpit;
 
-    public static KorisniciDAO getInstance(){
-        if(instance == null) instance = new KorisniciDAO();
+    public static CrmDAO getInstance(){
+        if(instance == null) instance = new CrmDAO();
         return instance;
     }
 
-    private KorisniciDAO() {
+    private CrmDAO() {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:crm.db");
         } catch (SQLException e) {
@@ -24,9 +24,10 @@ public class KorisniciDAO {
         }
         try{
             dajKorisnikeUpit = connection.prepareStatement("SELECT * FROM korisnici");
-            dodajKorisnikaUpit = connection.prepareStatement("INSERT INTO korisnici VALUES(?, ?, ?, ?, ?)");
+            dodajKorisnikaUpit = connection.prepareStatement("INSERT INTO korisnici VALUES(?, ?, ?, ?, ?, ?, ?)");
             dajIdZadnjegKorisnikaUpit = connection.prepareStatement("SELECT MAX(ID) FROM korisnici");
             izbrisiKorisnikaUpit = connection.prepareStatement("DELETE FROM korisnici WHERE id=?");
+            dajProizvodeUpit = connection.prepareStatement("SELECT * FROM proizvodi");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -35,10 +36,11 @@ public class KorisniciDAO {
         Korisnik korisnik = null;
         try {
             int id = rs.getInt(1);
-            String ime, prezime, email, datumRodjenja;
+            String ime, prezime, email, datumRodjenja, spol;
             ime = rs.getString(2);
             prezime = rs.getString(3);
             email = rs.getString(4);
+            spol = rs.getString(5);
 
             datumRodjenja = rs.getString(5);
             LocalDate datum = null;
@@ -46,13 +48,30 @@ public class KorisniciDAO {
                 String[] rez = datumRodjenja.split("\\.");
                  datum = LocalDate.of(Integer.parseInt(rez[2]), Integer.parseInt(rez[1]), Integer.parseInt(rez[0]));
             }
-            korisnik = new Korisnik(id, ime, prezime, email, datum);
+            korisnik = new Korisnik(id, ime, prezime, email, datum, spol);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return korisnik;
 
+    }
+
+    public Proizvod dajProizvod(ResultSet rs){
+        Proizvod proizvod = new Proizvod();
+        try {
+            proizvod.setId(rs.getInt(1));
+            proizvod.setNaziv(rs.getString(2));
+            proizvod.setBrend(rs.getString(3));
+            proizvod.setCijena(rs.getDouble(4));
+            proizvod.setKolicina(rs.getInt(5));
+            proizvod.setPopust(rs.getInt(6));
+            proizvod.setDetaljneInformacije(rs.getString(7));
+            proizvod.setTagovi(null);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return proizvod;
     }
     public ArrayList<Korisnik> dajKorisnike(){
         ArrayList<Korisnik> korisnici = new ArrayList<>();
@@ -67,6 +86,20 @@ public class KorisniciDAO {
         }
         return korisnici;
     }
+    public ArrayList<Proizvod> dajProizvode(){
+        ArrayList<Proizvod> proizvodi = new ArrayList<>();
+        try {
+            ResultSet rs = dajProizvodeUpit.executeQuery();
+
+            while(rs.next()){
+                proizvodi.add(dajProizvod(rs));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return proizvodi;
+    }
     public void dodajKorisnika(Korisnik korisnik) throws SQLException {
 
         dodajKorisnikaUpit.setInt(1,korisnik.getId());
@@ -74,6 +107,7 @@ public class KorisniciDAO {
         dodajKorisnikaUpit.setString(3, korisnik.getPrezime());
         dodajKorisnikaUpit.setString(4, korisnik.getEmail());
         dodajKorisnikaUpit.setString(5, korisnik.getDatumIspis());
+        dodajKorisnikaUpit.setString(6, korisnik.getSpol());
         dodajKorisnikaUpit.executeUpdate();
     }
     public int dajIdZadnjegKorisnika() throws SQLException {

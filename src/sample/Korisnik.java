@@ -1,10 +1,34 @@
 package sample;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Korisnik {
+
+    public enum Spol{
+
+        MUSKO("musko"),
+        ZENSKO("zensko");
+
+        private String naziv;
+
+        Spol(String naziv) {
+            this.naziv = naziv;
+        }
+
+        public String getNaziv() {
+            return naziv;
+        }
+    }
+    public enum StarosnaKateogrija{
+        BEBA,
+        DIJETE,
+        PUNOLJETAN,
+        ZREO,
+        SENIOR
+    }
 
     private String ime;
     private String prezime;
@@ -12,17 +36,21 @@ public class Korisnik {
     private LocalDate datumRodjenja;
     private ArrayList<Proizvod> kupljeniProizvodi = new ArrayList<>();
     private int id;
+    private Spol spol;
 
     public Korisnik() {
     }
 
-    public Korisnik(int id, String ime, String prezime, String email, LocalDate datumRodjenja) {
+    public Korisnik(int id, String ime, String prezime, String email, LocalDate datumRodjenja, String spol) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.datumRodjenja = datumRodjenja;
         this.id = id;
+        if(spol.equals("Muško")) this.spol = Spol.MUSKO;
+        else this.spol = Spol.ZENSKO;
     }
+
     public Korisnik(String ime, String prezime, String email, LocalDate datumRodjenja) {
         this.ime = ime;
         this.prezime = prezime;
@@ -76,5 +104,31 @@ public class Korisnik {
         DateTimeFormatter fomatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return fomatter.format(datumRodjenja);
     }
+    public int dajGodine(){
+        return Period.between(datumRodjenja, LocalDate.now()).getYears();
+    }
 
+    public String getSpol() {
+        return spol.getNaziv();
+    }
+
+    public void setSpol(String spol) {
+        if(spol.equals("Muško")) this.spol = Spol.MUSKO;
+        else this.spol = Spol.ZENSKO;
+    }
+    public StarosnaKateogrija dajStarosnuKateogriju(){
+        int godine = dajGodine();
+
+        if(godine >=0 && godine < 7)
+            return StarosnaKateogrija.BEBA;
+        else if(godine >=7 && godine < 18)
+            return StarosnaKateogrija.DIJETE;
+        else if(godine >= 18 && godine < 27)
+            return StarosnaKateogrija.PUNOLJETAN;
+        else if(godine>=27 && godine<50)
+            return StarosnaKateogrija.ZREO;
+        else
+            return StarosnaKateogrija.SENIOR;
+
+    }
 }

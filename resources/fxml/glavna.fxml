@@ -4,61 +4,59 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GlavnaController">
-   <right>
-      <VBox prefHeight="400.0" prefWidth="117.0" BorderPane.alignment="CENTER">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GlavnaController">
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
          <children>
-            <Button fx:id="btnDodaj" mnemonicParsing="false" onAction="#actionDodajKorisnika" prefHeight="27.0" prefWidth="109.0" text="Dodaj korisnika">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Pregled korisnika">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Button>
-            <Button fx:id="btnIzbrisi" onAction="#actionIzbrisiKorisnika" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Izbriši korisnika">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Button>
+            <HBox prefHeight="37.0" prefWidth="459.0">
+               <children>
+                  <Button fx:id="btnDodaj" mnemonicParsing="false" onAction="#actionDodajKorisnika" prefHeight="27.0" prefWidth="75.0" text="Dodaj">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="75.0" text="Detaljno">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnIzbrisi" mnemonicParsing="false" onAction="#actionIzbrisiKorisnika" prefHeight="27.0" prefWidth="75.0" text="Izbriši">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children></HBox>
+            <TableView fx:id="tableView" prefHeight="406.0" prefWidth="576.0">
+              <columns>
+                <TableColumn fx:id="columnIme" prefWidth="110.0" text="Ime" />
+                <TableColumn fx:id="columnPrezime" prefWidth="120.0" text="Prezime" />
+                  <TableColumn fx:id="columnEmail" prefWidth="123.0" text="E-mail" />
+                  <TableColumn fx:id="columnDatumRodjenja" prefWidth="125.0" text="Datum rođenja" />
+              </columns>
+            </TableView>
          </children>
       </VBox>
-   </right>
-   <center>
-      <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="columnIme" prefWidth="110.0" text="Ime" />
-          <TableColumn fx:id="columnPrezime" prefWidth="120.0" text="Prezime" />
-            <TableColumn fx:id="columnEmail" prefWidth="148.0" text="E-mail" />
-            <TableColumn fx:id="columnDatumRodjenja" prefWidth="100.0" text="Datum rođenja" />
-        </columns>
-         <BorderPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </BorderPane.margin>
-      </TableView>
    </center>
-   <top>
-      <HBox prefHeight="31.0" prefWidth="590.0" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </BorderPane.margin>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
+   <left>
+      <VBox prefHeight="453.0" prefWidth="115.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox prefHeight="15.0" prefWidth="150.0" HBox.hgrow="NEVER" />
+            <ListView fx:id="listOpcije" prefHeight="223.0" prefWidth="97.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin></ListView>
          </children>
-      </HBox>
-   </top>
+      </VBox>
+   </left>
 </BorderPane>
