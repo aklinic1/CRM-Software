@@ -13,7 +13,7 @@
          <children>
             <HBox prefHeight="37.0" prefWidth="459.0">
                <children>
-                  <Button fx:id="btnDodaj" mnemonicParsing="false" onAction="#actionDodajKorisnika" prefHeight="27.0" prefWidth="75.0" text="Dodaj">
+                  <Button fx:id="btnDodaj" mnemonicParsing="false" onAction="#actionDodaj" prefHeight="27.0" prefWidth="75.0" text="Dodaj">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -29,7 +29,7 @@
                         <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnIzbrisi" mnemonicParsing="false" onAction="#actionIzbrisiKorisnika" prefHeight="27.0" prefWidth="75.0" text="Izbriši">
+                  <Button fx:id="btnIzbrisi" mnemonicParsing="false" onAction="#actionIzbrisi" prefHeight="27.0" prefWidth="75.0" text="Izbriši">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>

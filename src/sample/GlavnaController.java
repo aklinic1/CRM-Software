@@ -22,14 +22,15 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
 public class GlavnaController {
+    private Set<Tag> tagovi = new HashSet<>();
     private CrmDAO dao;
     private ObservableList<Korisnik> listaKorisnika;
     private ObservableList<Proizvod> listaProizvoda;
+    private ObservableList<String> listaOpcija;
+
     public TableView tableView;
     public TableColumn columnIme, columnPrezime, columnEmail, columnDatumRodjenja;
-    public Set<Tag> tagovi = new HashSet<>();
     public ListView listOpcije;
-    public ObservableList<String> listaOpcija;
 
     public GlavnaController(){
         dao = CrmDAO.getInstance();
@@ -67,14 +68,14 @@ public class GlavnaController {
                 if(click.getClickCount() == 2){
 
                     if(listOpcije.getSelectionModel().getSelectedItem().equals("Proizvodi")) {
-                        if(!tableView.getColumns().get(0).equals("Naziv")) {
+                        if(columnIme.getText().equals("Ime")) {
                             postaviImenaKolonaTabele("Naziv", "Brend", "Cijena(KM)", "Količina");
                             tableView.setItems(listaProizvoda);
                             dodajVrijednostiKolonamaTabele("naziv", "brend", "cijena", "kolicina");
                         }
                     }
                     else if(listOpcije.getSelectionModel().getSelectedItem().equals("Korisnici")){
-                        if(!tableView.getColumns().get(0).equals("Ime")){
+                        if(columnIme.getText().equals("Naziv")){
                             postaviImenaKolonaTabele("Ime", "Prezime", "E-mail", "Datum rođenja");
                             tableView.setItems(listaKorisnika);
                             dodajVrijednostiKolonamaTabele("ime", "prezime", "email", "datumIspis");
@@ -86,39 +87,60 @@ public class GlavnaController {
     }
 
 
-    public void actionDodajKorisnika(ActionEvent actionEvent) {
+    public void actionDodaj(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/unosKorisnika.fxml"));
-            UnosKorisnikaController controller = new UnosKorisnikaController();
-            loader.setController(controller);
-            root = loader.load();
-            stage.setTitle("Unos korisnika");
-            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            stage.show();
-            stage.setMinHeight(stage.getHeight());
-            stage.setMinWidth(stage.getWidth());
-            stage.setOnHiding(event -> {
-                Korisnik korisnik =controller.getKorisnik();
+            if(columnIme.getText().equals("Ime")) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/unosKorisnika.fxml"));
+                UnosKorisnikaController controller = new UnosKorisnikaController();
+                loader.setController(controller);
+                root = loader.load();
+                stage.setTitle("Unos korisnika");
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.show();
+                stage.setMinHeight(stage.getHeight());
+                stage.setMinWidth(stage.getWidth());
+                stage.setOnHiding(event -> {
+                    Korisnik korisnik = controller.getKorisnik();
 
-                if(korisnik != null){
-                    try {
-                        korisnik.setId(dao.dajIdZadnjegKorisnika() + 1);
-                        dao.dodajKorisnika(korisnik);
-                        listaKorisnika.setAll(dao.dajKorisnike());
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                    if (korisnik != null) {
+                        try {
+                            korisnik.setId(dao.dajIdZadnjegKorisnika() + 1);
+                            dao.dodajKorisnika(korisnik);
+                            listaKorisnika.setAll(dao.dajKorisnike());
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
                     }
-                }
-            });
+                });
+            }
+            else {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/unosProizvoda.fxml"));
+                UnosProizvodaController controller = new UnosProizvodaController();
+                loader.setController(controller);
+                root = loader.load();
+                stage.setTitle("Unos Proizvoda");
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.show();
+                stage.setMinWidth(stage.getWidth());
+                stage.setMinHeight(stage.getHeight());
+                stage.setOnHiding(event -> {
+                    Proizvod proizvod = controller.getProizvod();
+
+                    if(proizvod != null){
+//                        UNOS PROIZVODA U BAZU
+                    }
+                });
+
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void actionIzbrisiKorisnika(ActionEvent actionEvent) {
+    public void actionIzbrisi(ActionEvent actionEvent) {
         Korisnik korisnik = (Korisnik) tableView.getSelectionModel().getSelectedItem();
         if(korisnik != null) {
             int id = korisnik.getId();

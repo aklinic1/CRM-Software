@@ -35,4 +35,9 @@ public class Tag {
     public int hashCode() {
         return Objects.hash(naziv);
     }
+
+    @Override
+    public String toString() {
+        return naziv;
+    }
 }
