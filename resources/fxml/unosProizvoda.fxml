@@ -2,9 +2,10 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="492.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="133.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="342.0" />
@@ -13,10 +14,11 @@
     <RowConstraints maxHeight="56.0" minHeight="4.0" prefHeight="50.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="111.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="84.0" minHeight="0.0" prefHeight="55.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="154.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="128.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="154.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label prefHeight="17.0" prefWidth="119.0" text="Naziv:">
@@ -51,7 +53,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </TextArea>
-      <HBox prefHeight="53.0" prefWidth="475.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+      <HBox prefHeight="61.0" prefWidth="491.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
          <children>
             <Label prefHeight="27.0" prefWidth="68.0" text="Cijena:">
                <HBox.margin>
@@ -84,24 +86,16 @@
             </ChoiceBox>
          </children>
       </HBox>
-      <HBox prefHeight="81.0" prefWidth="475.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+      <HBox prefHeight="40.0" prefWidth="491.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
          <children>
-            <Label prefHeight="27.0" prefWidth="112.0" text="Dodajte tagove:">
+            <TextField fx:id="txtTag" prefHeight="25.0" prefWidth="159.0" promptText="Ovdje unesite novi tag..">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="30.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="btnDodajTag" mnemonicParsing="false" onAction="#actionDodajTag" prefHeight="25.0" prefWidth="75.0" text="Dodaj tag">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <ComboBox fx:id="choiceTagovi" prefHeight="3.0" prefWidth="150.0">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </ComboBox>
-            <Button fx:id="btnUnesiTag" mnemonicParsing="false" onAction="#actionUnesiTag" prefHeight="25.0" prefWidth="121.0" text="Unesi novi tag">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="50.0" right="5.0" top="5.0" />
                </HBox.margin>
             </Button>
          </children></HBox>
@@ -121,7 +115,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </TextField>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
         <buttons>
           <Button fx:id="btnOdustani" cancelButton="true" mnemonicParsing="false" onAction="#actionOdustani" prefHeight="29.0" prefWidth="80.0" text="Odustani">
                <padding>
@@ -136,6 +130,40 @@
             <Insets bottom="5.0" left="5.0" right="20.0" top="5.0" />
          </GridPane.margin>
       </ButtonBar>
-      <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+      <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="5.0" right="5.0" />
+         </GridPane.margin></Separator>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+         <children>
+            <VBox prefHeight="121.0" prefWidth="174.0">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="164.0" text="Dvoklikom odaberite tag:">
+                     <VBox.margin>
+                        <Insets bottom="2.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </padding>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </Label>
+                  <ListView fx:id="listTagovi" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <FlowPane fx:id="flowPane" prefHeight="121.0" prefWidth="334.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </FlowPane>
+         </children>
+      </HBox>
    </children>
 </GridPane>

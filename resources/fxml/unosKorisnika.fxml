@@ -139,6 +139,9 @@
             </ChoiceBox>
          </children>
       </HBox>
-      <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+      <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="5.0" right="5.0" />
+         </GridPane.margin></Separator>
    </children>
 </GridPane>

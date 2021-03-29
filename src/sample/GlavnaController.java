@@ -22,7 +22,6 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
 public class GlavnaController {
-    private Set<Tag> tagovi = new HashSet<>();
     private CrmDAO dao;
     private ObservableList<Korisnik> listaKorisnika;
     private ObservableList<Proizvod> listaProizvoda;
@@ -61,25 +60,21 @@ public class GlavnaController {
         dodajVrijednostiKolonamaTabele("ime", "prezime", "email", "datumIspis");
 
         listOpcije.setItems(listaOpcija);
-        listOpcije.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        listOpcije.setOnMouseClicked(click -> {
+            if(click.getClickCount() == 2){
 
-            @Override
-            public void handle(MouseEvent click) {
-                if(click.getClickCount() == 2){
-
-                    if(listOpcije.getSelectionModel().getSelectedItem().equals("Proizvodi")) {
-                        if(columnIme.getText().equals("Ime")) {
-                            postaviImenaKolonaTabele("Naziv", "Brend", "Cijena(KM)", "Količina");
-                            tableView.setItems(listaProizvoda);
-                            dodajVrijednostiKolonamaTabele("naziv", "brend", "cijena", "kolicina");
-                        }
+                if(listOpcije.getSelectionModel().getSelectedItem().equals("Proizvodi")) {
+                    if(columnIme.getText().equals("Ime")) {
+                        postaviImenaKolonaTabele("Naziv", "Brend", "Cijena(KM)", "Količina");
+                        tableView.setItems(listaProizvoda);
+                        dodajVrijednostiKolonamaTabele("naziv", "brend", "cijena", "kolicina");
                     }
-                    else if(listOpcije.getSelectionModel().getSelectedItem().equals("Korisnici")){
-                        if(columnIme.getText().equals("Naziv")){
-                            postaviImenaKolonaTabele("Ime", "Prezime", "E-mail", "Datum rođenja");
-                            tableView.setItems(listaKorisnika);
-                            dodajVrijednostiKolonamaTabele("ime", "prezime", "email", "datumIspis");
-                        }
+                }
+                else if(listOpcije.getSelectionModel().getSelectedItem().equals("Korisnici")){
+                    if(columnIme.getText().equals("Naziv")){
+                        postaviImenaKolonaTabele("Ime", "Prezime", "E-mail", "Datum rođenja");
+                        tableView.setItems(listaKorisnika);
+                        dodajVrijednostiKolonamaTabele("ime", "prezime", "email", "datumIspis");
                     }
                 }
             }
@@ -117,7 +112,7 @@ public class GlavnaController {
             }
             else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/unosProizvoda.fxml"));
-                UnosProizvodaController controller = new UnosProizvodaController();
+                UnosProizvodaController controller = new UnosProizvodaController(dao.dajTagove(), dao);
                 loader.setController(controller);
                 root = loader.load();
                 stage.setTitle("Unos Proizvoda");
@@ -129,7 +124,13 @@ public class GlavnaController {
                     Proizvod proizvod = controller.getProizvod();
 
                     if(proizvod != null){
-//                        UNOS PROIZVODA U BAZU
+                        try{
+                            proizvod.setId(dao.dajIdZadnjegProizvoda() + 1);
+                            dao.dodajProizvod(proizvod);
+                            listaProizvoda.setAll(dao.dajProizvode());
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
                     }
                 });
 
@@ -141,22 +142,42 @@ public class GlavnaController {
     }
 
     public void actionIzbrisi(ActionEvent actionEvent) {
-        Korisnik korisnik = (Korisnik) tableView.getSelectionModel().getSelectedItem();
-        if(korisnik != null) {
-            int id = korisnik.getId();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Potvrda brisanja");
-            String imePrezime = korisnik.getIme() + " " + korisnik.getPrezime();
-            alert.setHeaderText("Brisanje korisnika "+ imePrezime);
-            alert.setContentText("Da li ste sigurni da želite obrisati korisnika " + imePrezime +"?");
-            alert.setResizable(true);
+        if(columnIme.getText().equals("Ime")){
+            Korisnik korisnik = (Korisnik) tableView.getSelectionModel().getSelectedItem();
+            if (korisnik != null) {
+                int id = korisnik.getId();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Potvrda brisanja");
+                String imePrezime = korisnik.getIme() + " " + korisnik.getPrezime();
+                alert.setHeaderText("Brisanje korisnika " + imePrezime);
+                alert.setContentText("Da li ste sigurni da želite obrisati korisnika " + imePrezime + "?");
+                alert.setResizable(true);
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                dao.izbrisiKorisnika(id);
-                listaKorisnika.setAll(dao.dajKorisnike());
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    dao.izbrisiKorisnika(id);
+                    listaKorisnika.setAll(dao.dajKorisnike());
+                }
+
             }
+        }
+        else{
+            Proizvod proizvod = (Proizvod) tableView.getSelectionModel().getSelectedItem();
+            if(proizvod!=null){
+                int id = proizvod.getId();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Potvrda brisanja");
+                String naziv = proizvod.getNaziv();
+                alert.setHeaderText("Brisanje proizvoda " + naziv);
+                alert.setContentText("Da li ste sigurni da želite obrisati proizvod " + naziv + "?");
+                alert.setResizable(true);
 
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    dao.izbrisiProizvod(id);
+                    listaProizvoda.setAll(dao.dajProizvode());
+                }
+            }
         }
     }
 }
