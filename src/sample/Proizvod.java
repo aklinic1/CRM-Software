@@ -16,11 +16,6 @@ public class Proizvod {
 
     public Proizvod() {
     }
-    public Proizvod(String naziv, Double cijena, Integer kolicina) {
-        this.naziv = naziv;
-        this.cijena = cijena;
-        this.kolicina = kolicina;
-    }
 
     public Double dajCijenuSaPopustom(){
         return cijena*(1-(double)popust/100);

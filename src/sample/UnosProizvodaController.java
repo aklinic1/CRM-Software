@@ -21,14 +21,16 @@ public class UnosProizvodaController {
     private ObservableList<Tag> tagovi;
     private ObservableList<Integer> kolicine = FXCollections.observableArrayList();
     private CrmDAO dao;
+    private Set<Tag> izabraniTagovi = new HashSet<>();
+    private Set<Tag> tagoviZaPrikaz;
+
     public ListView<Tag> listTagovi;
     public TextField txtNaziv, txtBrend, txtCijena, txtTag;
     public TextArea txtInformacije;
     public ChoiceBox<Integer> choiceKolicina;
     public FlowPane flowPane;
     public Proizvod proizvod = null;
-    private Set<Tag> izabraniTagovi = new HashSet<>();
-    private Set<Tag> tagoviZaPrikaz;
+
     public Proizvod getProizvod() {
         return proizvod;
     }
@@ -55,7 +57,7 @@ public class UnosProizvodaController {
                 Tag izabraniTag = listTagovi.getSelectionModel().getSelectedItem();
                 int duzina = izabraniTagovi.size();
                 izabraniTagovi.add(izabraniTag);
-                if(duzina != izabraniTagovi.size()) {
+                if(duzina != izabraniTagovi.size()) {        //Provjeravamo da li je ovaj tag vec izabran
                     Image image = new javafx.scene.image.Image("delete.png");
                     ImageView imageView = new ImageView(image);
                     Button tag = new Button(izabraniTag.getNaziv());
@@ -125,11 +127,13 @@ public class UnosProizvodaController {
             Tag tag = new Tag(txtTag.getText());
             int vel = tagoviZaPrikaz.size();
             tagoviZaPrikaz.add(tag);
-            if(vel != tagoviZaPrikaz.size()) {
+            if(vel != tagoviZaPrikaz.size()) {          //Provjeravamo da li ovaj tag vec postoji
                 listTagovi.getItems().add(tag);
                 dao.dodajTag(tag);
             }
             txtTag.setText("");
+            listTagovi.getSelectionModel().select(listTagovi.getItems().size() - 1);
+            listTagovi.scrollTo(listTagovi.getItems().size() - 1);
             listTagovi.requestFocus();
         }
         else {
