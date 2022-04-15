@@ -1,8 +1,6 @@
 package sample;
 
-import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 
 public class Tag {
     private String naziv;

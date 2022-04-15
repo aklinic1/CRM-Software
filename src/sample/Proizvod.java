@@ -1,6 +1,9 @@
 package sample;
 
+import org.json.JSONArray;
+
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Proizvod {
@@ -11,7 +14,7 @@ public class Proizvod {
     private Integer popust = 0;
     private Integer kolicina;
     private String detaljneInformacije;
-//    slika
+    //    slika
     private Set<Tag> tagovi = new HashSet<>();
 
     public Proizvod() {
@@ -76,6 +79,19 @@ public class Proizvod {
         return kolicina;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Proizvod proizvod = (Proizvod) o;
+        return id == proizvod.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
     public void setKolicina(Integer kolicina) {
         this.kolicina = kolicina;
     }
@@ -94,5 +110,16 @@ public class Proizvod {
 
     public void setTagovi(Set<Tag> tagovi) {
         this.tagovi = tagovi;
+    }
+
+    @Override
+    public String toString() {
+        return naziv + ", " + brend + " (" + cijena +") KM";
+    }
+    public JSONArray getTagoviJSON(){
+        JSONArray array = new JSONArray();
+        for(Tag tag: tagovi)
+            array.put(tag.getNaziv());
+        return array;
     }
 }
