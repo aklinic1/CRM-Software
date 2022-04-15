@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="388.0" styleClass="gridPane" stylesheets="@../css/unosForme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label prefHeight="29.0" prefWidth="128.0" styleClass="label2" text="Ime : " textFill="WHITE">
+         <GridPane.margin>
+            <Insets bottom="5.0" right="5.0" top="10.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label prefHeight="29.0" prefWidth="129.0" styleClass="label2" text="Prezime:" textFill="WHITE" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="datePicker" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </DatePicker>
+      <Label prefHeight="17.0" prefWidth="132.0" styleClass="label2" text="Datum rođenja: " textFill="WHITE" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets bottom="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtIme" maxWidth="1.7976931348623157E308" stylesheets="@../css/unosForme.css" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="15.0" right="15.0" top="10.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </TextField>
+      <TextField fx:id="txtPrezime" maxWidth="1.7976931348623157E308" stylesheets="@../css/unosForme.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </TextField>
+      <TextField fx:id="txtEmail" stylesheets="@../css/unosForme.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </TextField>
+      <Label prefHeight="19.0" prefWidth="128.0" styleClass="label2" text="E-mail:" textFill="WHITE" GridPane.rowIndex="3">
+         <font>
+            <Font size="13.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </Label>
+      <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="24.0" prefWidth="374.0" GridPane.columnSpan="2" GridPane.rowIndex="11">
+        <buttons>
+          <Button fx:id="btnOdustani" cancelButton="true" mnemonicParsing="false" onAction="#actionOdustani" prefWidth="75.0" stylesheets="@../css/unosForme.css" text="Odustani" textFill="#fcfcfc">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnDodaj" defaultButton="true" mnemonicParsing="false" onAction="#actionDodaj" prefWidth="75.0" styleClass="button2" stylesheets="@../css/unosForme.css" text="Dodaj" textFill="#fcfcfc">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Button>
+        </buttons>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </opaqueInsets>
+      </ButtonBar>
+      <Label prefHeight="27.0" prefWidth="126.0" styleClass="label2" text="Odaberite spol: " textFill="WHITE" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets bottom="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <ChoiceBox fx:id="choiceSpol" accessibleRole="CHECK_MENU_ITEM" nodeOrientation="LEFT_TO_RIGHT" prefWidth="189.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <Label styleClass="label2" text="Kupljeni proizvodi:" textFill="WHITE" GridPane.rowIndex="9">
+         <GridPane.margin>
+            <Insets bottom="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <ListView prefHeight="100.0" prefWidth="229.0" stylesheets="@../css/unosForme.css" GridPane.columnIndex="1" GridPane.rowIndex="9">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin></ListView>
+      <Separator style="-fx-background-color: #44244C;" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+      <Separator style="-fx-background-color: #44244C;" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+      <Separator style="-fx-background-color: #44244C;" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+      <Separator style="-fx-background-color: #44244C;" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+      <Separator style="-fx-background-color: #44244C;" GridPane.columnSpan="2" GridPane.rowIndex="10" />
+   </children>
+</GridPane>

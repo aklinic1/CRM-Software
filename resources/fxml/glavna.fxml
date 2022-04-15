@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GlavnaController">
+   <center>
+      <VBox prefHeight="485.0" prefWidth="566.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="558.0">
+               <children>
+                  <Label fx:id="labelPage" prefHeight="30.0" prefWidth="102.0" text="Korisnici:" textFill="#753375">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <Button fx:id="btnDodaj" mnemonicParsing="false" onAction="#actionDodaj" prefHeight="30.0" prefWidth="75.0" styleClass="button2" stylesheets="@../css/glavna.css" text="Dodaj" textFill="#753375">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnDetaljno" mnemonicParsing="false" onAction="#actionDetaljno" prefHeight="30.0" prefWidth="75.0" styleClass="button2" stylesheets="@../css/glavna.css" text="Detaljno" textFill="#753375">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnIzbrisi" mnemonicParsing="false" onAction="#actionIzbrisi" prefHeight="30.0" prefWidth="75.0" styleClass="button2" stylesheets="@../css/glavna.css" text="Izbriši" textFill="#753375">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <TableView fx:id="tableView" prefHeight="444.0" prefWidth="623.0" stylesheets="@../css/glavna.css">
+              <columns>
+                <TableColumn fx:id="columnIme" prefWidth="149.0" text="Ime" />
+                <TableColumn fx:id="columnPrezime" prefWidth="154.0" text="Prezime" />
+                  <TableColumn fx:id="columnEmail" prefWidth="175.0" sortable="false" text="E-mail" />
+                  <TableColumn fx:id="columnDatumRodjenja" prefWidth="136.0" text="Datum rođenja" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <VBox prefHeight="495.0" prefWidth="193.0" style="-fx-background-color: #663672;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnKorisnici" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#actionKorisnici" prefHeight="40.0" prefWidth="200.0" stylesheets="@../css/glavna.css" text="Korisnici" textFill="WHITE">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+               </padding>
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/users.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Copperplate Gothic Light" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnProizvodi" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#actionProizvodi" prefHeight="40.0" prefWidth="195.0" stylesheets="@../css/glavna.css" text="Proizvodi" textFill="#fffefe">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+               </padding>
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/products.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Copperplate Gothic Light" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnKupovine" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#actionKupovine" prefHeight="40.0" prefWidth="194.0" stylesheets="@../css/glavna.css" text="Kupovine" textFill="#fffefe">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/kupovine.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="Copperplate Gothic Light" size="12.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="button" />
+                  <String fx:value="button" />
+               </styleClass>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <VBox style="-fx-background-color: #3f4169;" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar style="-fx-background-color: #5C2868;">
+              <menus>
+                <Menu text="_File">
+                  <items>
+                    <MenuItem text="_Close" />
+                        <Menu mnemonicParsing="false" text="_Export">
+                           <items>
+                              <MenuItem fx:id="mniExportProizvodi" mnemonicParsing="false" onAction="#actionExportProizvodi" text="Proizvodi" />
+                              <MenuItem fx:id="mniExportKorisnici" mnemonicParsing="false" onAction="#actionExportKorisnici" text="Korisnici" />
+                           </items>
+                        </Menu>
+                        <Menu text="_Import">
+                          <items>
+                            <MenuItem fx:id="mniImportProizvodi" mnemonicParsing="false" onAction="#actionImportProizvodi" text="Proizvodi" />
+                              <MenuItem fx:id="mniImportKorisnici" mnemonicParsing="false" onAction="#actionImportKorisnici" text="Korisnici" />
+                          </items>
+                        </Menu>
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu text="_Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+               <padding>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </padding>
+            </MenuBar>
+            <Separator prefWidth="200.0" style="-fx-background-color: #9293a6;" />
+         </children>
+      </VBox>
+   </top>
+</BorderPane>

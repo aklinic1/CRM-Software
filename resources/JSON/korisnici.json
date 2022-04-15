@@ -1,0 +1,6 @@
+[ {"ime":"Amer","prezime":"KALINIC","datumRodjenja":"2000-09-09","id":1,"email":"amerklinic@gmail.com","spol":"Žensko"} , 
+{"ime":"NIKAN","prezime":"Nikic","datumRodjenja":"2000-08-27","id":2,"email":"nn@gmail.com","spol":"Muško"} , 
+{"ime":"Neko","prezime":"Nekic","datumRodjenja":"1922-05-12","id":3,"email":"nnekic@yahoo.com","spol":"Muško"} , 
+{"ime":"Simo","prezime":"Simic","datumRodjenja":"1888-05-05","id":4,"spol":"Muško"} , 
+{"ime":"Alena","prezime":"Alic","datumRodjenja":"2002-06-13","id":5,"email":"aalic@gmail.com","spol":"Žensko"} , 
+{"ime":"Amina","prezime":"Aminic","datumRodjenja":"2021-03-12","id":6,"email":"am@gmail.com","spol":"Žensko"} ]
